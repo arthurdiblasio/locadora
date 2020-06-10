@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <div class="collapse navbar-collapse d-flex justify-content-between align-content-center m-4"
+    id="navbarSupportedContent">
+    <h4 class="admin">ADMIN Locadora</h4>
+    <a href="../" class="linkHome">Home</a>
+    <button class="btn btn-outline-info my-sm-0" type="submit" [disabled]="filmeForm.invalid"
+      (click)="salvar()">Salvar</button>
+  </div>
+</nav>
+<div class="body mt-4 mb-4">
+  <h3 *ngIf="!editando" class="text-center">Criar Filme</h3>
+  <h3 *ngIf="editando" class="text-center">Editar Filme</h3>
+  <form [formGroup]="filmeForm" class="mt-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 mt-3">
+          Nome:
+          <input type="text" formControlName="nome" class="form-control">
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          Capa:
+          <input type="file" formControlName="capa" class="form-control">
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          Categoria:
+          <select formControlName="categoria" class="form-control">
+            <option value="Acao e drama">Ação e drama</option>
+            <option value="comedia">Comédia</option>
+            <option value="suspense">Suspense</option>
+            <option value="romantico">Romântico</option>
+            <option value="Acao e drama">Ação e drama</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          Classificação:
+          <select formControlName="classificacao" class="form-control">
+            <option value="L">Livre</option>
+            <option value="10">10 anos</option>
+            <option value="14">14 anos</option>
+            <option value="16">16 anos</option>
+            <option value="18">18 anos</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          Elenco:
+          <textarea type="text" formControlName="elenco" class="form-control"
+            placeholder="Digite o nome separando-os por vírgula(,)"></textarea>
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          Sinopse:
+          <textarea type="text" formControlName="sinopse" class="form-control"></textarea>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

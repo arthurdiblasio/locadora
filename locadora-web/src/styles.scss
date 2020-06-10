@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.body {
+  padding: 0px 10%;
+}
+
+.linkHome {
+  padding-right: 7em;
+}
+
+@media (max-width: 577px) {
+  .admin {
+    display: none;
+  }
+  .linkHome {
+    padding-right: 0em;
+  }
+}

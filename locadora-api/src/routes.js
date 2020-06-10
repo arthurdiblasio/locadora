@@ -14,6 +14,8 @@ routes.get('/ratings/:rating_id', RatingController.index);
 routes.post('/ratings', RatingController.store);
 
 routes.get('/movies', MovieController.index);
+routes.get('/movies/:movie_id', MovieController.indexId);
 routes.post('/movies', MovieController.store);
+routes.delete('/movies/:movie_id', MovieController.deleteId);
 
 module.exports = routes;

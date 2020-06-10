@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmesService } from '../../services/filmes.service';
+import { Movie } from 'src/app/models/movie';
+import { MoviesService } from 'src/app/services/movies/movies.service';
+import { RatingsService } from '../../services/ratings/ratings.service';
+import { CategoriesService } from '../../services/categories/categories.service';
 
 @Component({
   selector: 'app-home',
@@ -8,38 +11,89 @@ import { FilmesService } from '../../services/filmes.service';
 })
 export class HomeComponent implements OnInit {
 
-  _filmes = [];
-  filmes = [];
-  filmeSearch = '';
-  filmesFiltrados = false;
+  _movies: Array<Movie> = Array<Movie>();
+  movies: Array<Movie> = Array<Movie>();
+  movieSearch = '';
+  moviesFiltrados = false;
   arrayListados = [];
-  filmeExcluir = '';
+  movieExcluir = '';
+  ratings: any = [];
+  categories: any = [];
+  loading = false;
 
   constructor(
-    private filmesService: FilmesService
+    private moviesService: MoviesService,
+    private ratingsService: RatingsService,
+    private categoriesService: CategoriesService,
   ) {
 
   }
 
-  ngOnInit(): void {
-
-    this.filmes = this.filmesService.getFilmes();
+  ngOnInit() {
+    this.loading = true;
+    this.getRatings();
   }
+
+  getRatings() {
+    this.ratingsService.getRatings().then(ratings => {
+      this.ratings = ratings;
+      this.getCategories();
+    })
+      .catch(error => {
+        this.loading = false;
+        console.log(error);
+
+      });
+  }
+
+  getCategories() {
+    this.categoriesService.getCategories().then(categories => {
+      this.categories = categories;
+      this.getMovies();
+    })
+      .catch(error => {
+        this.loading = false;
+        console.log(error);
+
+      });
+  }
+
+  getMovies() {
+    this.moviesService.getMovies().then(movies => {
+      this._movies = movies;
+      this.movies = movies;
+      this.loading = false;
+
+    })
+      .catch(error => {
+        this.loading = false;
+        console.log(error);
+
+      });
+  }
+
+  getNameCategory(category_id: number) {
+    return this.categories.find(category => category.id === category_id).name;
+  }
+
+  getNameRating(rating_id: number) {
+    return this.ratings.find(rating => rating.id === rating_id).name;
+  }
+
 
   search() {
 
-    console.log(this.filmeSearch);
 
-    if (this.filmeSearch === '') {
-      this.filmes = [...this._filmes];
-      this.filmesFiltrados = false;
+    if (this.movieSearch === '') {
+      this.movies = [...this._movies];
+      this.moviesFiltrados = false;
       return;
     }
 
-    this.filmes = this._filmes.filter(filme => {
-      filme.nome.toUpperCase().includes(this.filmeSearch.toUpperCase());
+    this.movies = this._movies.filter(movie => {
+      movie.name.toUpperCase().includes(this.movieSearch.toUpperCase());
     });
-    this.filmesFiltrados = true;
+    this.moviesFiltrados = true;
   }
 
   exibirInfo(id: string) {
@@ -57,8 +111,11 @@ export class HomeComponent implements OnInit {
 
   }
 
-  removerFilme(id: string) {
-    this.filmes = this.filmesService.removeFilme(id);
+  removeMovie(id: string) {
+    this.moviesService.removeMovie(id).then(res => {
+      this.getMovies();
+    }).catch(err => {
+    });
   }
 
 

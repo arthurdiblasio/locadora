@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { AdicionarComponent } from './pages/adicionar-filme/adicionar.component';
+import { AddMovieComponent } from './pages/add-movie/add-movie.component';
 
 
 const routes: Routes = [
 
   { path: '', component: HomeComponent },
-  { path: 'adicionar', component: AdicionarComponent },
-  { path: ':id/editar', component: AdicionarComponent },
+  { path: 'add', component: AddMovieComponent },
+  { path: ':id/edit', component: AddMovieComponent },
 
 ];
 

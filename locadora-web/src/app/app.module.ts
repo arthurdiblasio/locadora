@@ -5,16 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { AdicionarComponent } from './pages/adicionar-filme/adicionar.component';
+import { AddMovieComponent } from './pages/add-movie/add-movie.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AdicionarComponent
+    AddMovieComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
